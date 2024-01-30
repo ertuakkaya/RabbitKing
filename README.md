@@ -1,7 +1,7 @@
 # RabbitKing
 
 # Overview
-Rabbit King IBR is an engaging 2D platform game where players take on the role of a prince rabbit. In order to ascend to the throne and become the Rabbit King, players must adhere to traditional customs and acquire a special carrot. This readme provides essential information on how to play the game.
+Rabbit King is an engaging 2D platform game where players take on the role of a prince rabbit. In order to ascend to the throne and become the Rabbit King, players must adhere to traditional customs and acquire a special carrot. This readme provides essential information on how to play the game.
 
 # Controls
 
