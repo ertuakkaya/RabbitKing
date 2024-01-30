@@ -11,3 +11,14 @@ Movement: Use A key for left, and D key for right
 # Gameplay
 
 Navigate the prince rabbit through various levels, overcoming obstacles, and collecting special carrots to fulfill the royal traditions. Be cautious of challenges along the way, and use your jumping and movement skills wisely.
+
+With:
+https://github.com/LuciMark0
+
+## Contributors
+
+Special thanks to the following contributors who actively participated in the development of Rabbit King IBR:
+
+- [Friend1](https://github.com/Friend1)
+- [Friend2](https://github.com/Friend2)
+- [Friend3](https://github.com/Friend3)
