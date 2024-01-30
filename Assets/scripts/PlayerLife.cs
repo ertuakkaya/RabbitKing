@@ -35,6 +35,8 @@ public class PlayerLife : MonoBehaviour
 
     private void Die()
     {
+        
+        
         rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");
     }
@@ -48,14 +50,33 @@ public class PlayerLife : MonoBehaviour
             // buraya oyun bitti gelecek
 
         }
-        if (collision.gameObject.CompareTag("Thorn") && player.GetComponent<KillTheBear>().isBearDead)
+        //if (collision.gameObject.CompareTag("Thorn") || player.GetComponent<KillTheBear>().isBearDead)
+        //{
+        //    Die();
+
+        //    // buraya olum ekraný gelecek
+
+        //    managerObject.LoadEndGame();
+        //}
+
+        // if bear is dead, player can't die
+        if (player.GetComponent<KillTheBear>().isBearDead)
+        {
+            return;
+        }
+
+        //if bear is not dead, player can die
+        if (collision.gameObject.CompareTag("Thorn"))
         {
             Die();
 
             // buraya olum ekraný gelecek
 
             managerObject.LoadEndGame();
-        }
+        }   
+
+        
+
     }
     
 }
