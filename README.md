@@ -18,7 +18,7 @@ Navigate the prince rabbit through various levels, overcoming obstacles, and col
 
 Special thanks to the following contributors who actively participated in the development of Rabbit King IBR:
 
-- [Fatih Barıs Demirel](https://github.com/FatihveBaris)
+- [Fatih Barış Demirel](https://github.com/FatihveBaris)
 - [Göktuğ Kaan Koz](https://github.com/LuciMark0)
 
   
