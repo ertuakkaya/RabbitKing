@@ -8,6 +8,7 @@ public class PlayerLife : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private GameObject player;
+    
 
 
     GameManager managerObject = new GameManager();
@@ -15,12 +16,10 @@ public class PlayerLife : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         player = GameObject.Find("Player");
-        
         rb = GetComponent<Rigidbody2D>();
-        
         anim = GetComponent<Animator>();
+        
     }
 
 
@@ -33,49 +32,40 @@ public class PlayerLife : MonoBehaviour
     }
 
 
+
+    /*
+    // doing nothing for now
     private void Die()
     {
-        
-        
         rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");
+        
     }
+    */
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        //if bear is not dead, player can die
+        if (collision.gameObject.CompareTag("Thorn") || collision.gameObject.CompareTag("Bear"))
         {
-            Debug.Log("bitti");
-            managerObject.RestartGame();
-            // buraya oyun bitti gelecek
-
+            //Die();
+            managerObject.LoadEndGame();
         }
-        //if (collision.gameObject.CompareTag("Thorn") || player.GetComponent<KillTheBear>().isBearDead)
-        //{
-        //    Die();
 
-        //    // buraya olum ekraný gelecek
-
-        //    managerObject.LoadEndGame();
-        //}
-
-        // if bear is dead, player can't die
-        if (player.GetComponent<KillTheBear>().isBearDead)
+        // if player collide with bear head, bear will die but player can't die anymore
+        else if (collision.gameObject.CompareTag("BearHead"))
+        {
+            
+            player.GetComponent<KillTheBear>().isBearDead = true;
+            Debug.Log("collide with bear head"); 
+            // don't call Die() functio
+        }
+        
+        else if (player.GetComponent<KillTheBear>().isBearDead)
         {
             return;
         }
-
-        //if bear is not dead, player can die
-        if (collision.gameObject.CompareTag("Thorn"))
-        {
-            Die();
-
-            // buraya olum ekraný gelecek
-
-            managerObject.LoadEndGame();
-        }   
-
-        
 
     }
     

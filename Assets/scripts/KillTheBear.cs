@@ -22,12 +22,15 @@ public class KillTheBear : MonoBehaviour
         
     }
 
+    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.collider.CompareTag("BearHead"))
         {
             Destroy(bear);
             isBearDead = true;
+            Debug.Log("collide with bearHEad");
 
         }
     }
