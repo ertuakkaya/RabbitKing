@@ -9741,6 +9741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  kamerasinir: {fileID: 0}
 --- !u!114 &1447102256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14404,7 +14405,7 @@ Transform:
   m_GameObject: {fileID: 2091235617}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.68, y: 10.25, z: 0}
+  m_LocalPosition: {x: -0.59, y: 11.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -14423,6 +14424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  kamerasinir: {fileID: 0}
 --- !u!114 &2091235625
 MonoBehaviour:
   m_ObjectHideFlags: 0

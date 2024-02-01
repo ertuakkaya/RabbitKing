@@ -71,11 +71,9 @@ public class KameraSinir : MonoBehaviour
         {
             if (remeningLives > 0 && isLevel2)
             {
-                remeningLives--;
-                livesTextTMP.text = remeningLives.ToString();
-                Debug.Log("Kalan can: " + remeningLives );
-                StopPlayer1();
-                StartPlayer2();
+                DecreaseLives(); // decrease lives and update text
+                StopPlayer1(); // stop player1
+                StartPlayer2(); // start player2
             }
             if(remeningLives <= 0)
             {
@@ -86,6 +84,13 @@ public class KameraSinir : MonoBehaviour
         }
     }
 
+
+    public void DecreaseLives()
+    {
+        remeningLives--;
+        livesTextTMP.text = remeningLives.ToString();
+        Debug.Log("Kalan can: " + remeningLives );
+    }
 
     public void StopPlayer1()
     {
