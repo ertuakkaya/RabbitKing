@@ -32,7 +32,7 @@ public class BearMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        Debug.Log("collision");
+        //Debug.Log("collision");
         leftBound.x = collision.gameObject.transform.position.x - ((-0.068f - -0.838f) / 2);
         rightBound.x = collision.gameObject.transform.position.x + ((-0.068f - -0.838f) / 2);
 
@@ -42,12 +42,12 @@ public class BearMovement : MonoBehaviour
 
 
     // Update is called once per frame
-    async void Update()
+    private void Update()
     {
-        Debug.Log(leftBound.x);
+        //Debug.Log(leftBound.x);
         if (leftBound.x != 0 && rightBound.x != 0)
         {
-            Debug.Log("nan");
+            //Debug.Log("nan");
             before = gameObject.transform.position;
             gameObject.transform.position = new Vector2(Mathf.PingPong((Time.time / 2), rightBound.x - leftBound.x) + leftBound.x, gameObject.transform.position.y);
             current = gameObject.transform.position;

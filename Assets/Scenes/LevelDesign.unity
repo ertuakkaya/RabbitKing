@@ -339,13 +339,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 147951483}
-  offset: {x: 0, y: -6.39, z: 0}
+  offset: {x: 0, y: -5.91, z: 0}
   isLevel2: 0
   playerForLevel2: {fileID: 0}
   playerForLevel1: {fileID: 0}
-  remeningLives: 3
-  level2StartPos: {x: 1.26, y: 6.96}
-  livesTextTMP: {fileID: 0}
+  GameManagerObject: {fileID: 0}
+  remeningLives: 2
+  level2StartPos: 15
+  livesTextTMP: {fileID: 1624070590}
   managerObject: {fileID: 0}
 --- !u!1001 &27947655
 PrefabInstance:
@@ -9894,7 +9895,7 @@ Transform:
   m_GameObject: {fileID: 1447102252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.289, y: 5.106, z: 0}
+  m_LocalPosition: {x: -0.56, y: 15.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -11007,7 +11008,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11034,7 +11035,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.1
+  m_fontSize: 30.61
   m_fontSizeBase: 30.61
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14403,7 +14404,7 @@ Transform:
   m_GameObject: {fileID: 2091235617}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.62, y: 6.16, z: 0}
+  m_LocalPosition: {x: 0.68, y: 10.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []

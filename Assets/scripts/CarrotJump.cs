@@ -31,7 +31,7 @@ public class CarrotJump : MonoBehaviour
 
        
         doubleJumpImage.GetComponent<SpriteRenderer>().enabled = false;
-        Debug.Log("DoubleJumpImage is set to false Start");
+        //Debug.Log("DoubleJumpImage is set to false Start");
         
 
 
@@ -43,7 +43,7 @@ public class CarrotJump : MonoBehaviour
         if (player.GetComponent<PlayerMoment>().doubleJump == false)
         {
             doubleJumpImage.GetComponent<SpriteRenderer>().enabled = false;
-            Debug.Log("DoubleJumpImage is set to false Update");
+            //Debug.Log("DoubleJumpImage is set to false Update");
 
 
         }
