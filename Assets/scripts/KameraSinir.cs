@@ -3,14 +3,27 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+//using System.Diagnostics;
 
 public class KameraSinir : MonoBehaviour
 {
     public Transform player;
+
+    [SerializeField]
+    private Image LivesImage;
+    
+    
+    
+
+
     public Vector3 offset;
     public bool isLevel2 = false;
+    public bool isLevel3 = false;
     public GameObject playerForLevel2;
     public GameObject playerForLevel1;
+
+    public GameObject playerForLevel3;
 
     public GameObject GameManagerObject;
 
@@ -18,6 +31,8 @@ public class KameraSinir : MonoBehaviour
 
     [SerializeField]
     private int level2StartPos = 15;
+    [SerializeField]
+    private int level3StartPos = 20;
 
     //public Vector2 level2StartPos = new Vector2(-0.610000014f,1.70000005f);
 
@@ -28,14 +43,24 @@ public class KameraSinir : MonoBehaviour
 
    private void Awake() 
    {
+        
+        playerForLevel1 = GameObject.Find("Player");
         playerForLevel2 = GameObject.Find("PlayerForLevel2");
-        StopPlayer2();
+        playerForLevel3 = GameObject.Find("PlayerForLevel3");
+        StopPlayer2(); // baslangicta player2 yi durdur
+        StopPlayer3(); // baslangicta player3 u durdur
+        
+        LivesImage = GameObject.Find("Canvas/LiveImage").GetComponent<Image>();
+        LivesImage.enabled = false;
+        
+        
+        
         
         
         livesTextTMP = GameObject.Find("Canvas/Life (TMP)").GetComponent<TextMeshProUGUI>();
 
         managerObject = GameObject.Find("GameManager").GetComponent<GameManager>();
-        playerForLevel1 = GameObject.Find("Player");
+        
    }
 
    private void Start() {
@@ -45,23 +70,41 @@ public class KameraSinir : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = player.position + offset;
+        transform.position = player.position + offset; 
 
-        if (player.position.y > level2StartPos && !isLevel2)
+        if (player.position.y > level2StartPos && !isLevel2 && !isLevel3) // level1'den level2 ye geçiş
         {
+            
+            isLevel3 = false;
             isLevel2 = true;
+            
+
+            LivesImage.enabled = true;
             remeningLives = 2;
-            Debug.Log("level 2 ulasıldi");
+            UnityEngine.Debug.Log("level 2 ulasıldi");
             livesTextTMP.text = remeningLives.ToString();
 
             // buraya texti gostermek yerine bir canı olduğunu gosteren bir can simgesi koyulabilir
 
         }
-        else if (player.position.y < level2StartPos)
+        else if (playerForLevel2.transform.position.y >= level3StartPos && !isLevel3 && isLevel2) // level2'den level 3 e geçiş
         {
             isLevel2 = false;
+            isLevel3 = true;
+            
+            LivesImage.enabled = true;
+            remeningLives = 2;
+            UnityEngine.Debug.Log("level 3 ulasıldi");
+            livesTextTMP.text = remeningLives.ToString();
+        }
+        else if (player.position.y < level2StartPos && !isLevel2 && !isLevel3) // oyun baslangici level 1
+        {
+            isLevel2 = false;
+            isLevel3 = false;
             remeningLives = 0;
-        }   
+            LivesImage.enabled = false;
+        }
+        
     }
 
 
@@ -69,11 +112,23 @@ public class KameraSinir : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (remeningLives > 0 && isLevel2)
+            if (remeningLives > 0 && (isLevel2 || isLevel3))
             {
-                DecreaseLives(); // decrease lives and update text
-                StopPlayer1(); // stop player1
-                StartPlayer2(); // start player2
+                
+
+                //StopPlayer1(); // stop player1
+                //StopFormerPlayer(); // stop former player
+                StartCoroutine(StopFormerPlayerCoroutine());
+
+
+                //StartPlayer2(); // start player2
+                //StartNextPlayer(); // start next player
+                StartCoroutine(StartNextPlayerCoroutine());
+
+                //DecreaseLives(); // decrease lives and update text
+                StartCoroutine(DecreaseLivesCoroutine());
+
+
             }
             if(remeningLives <= 0)
             {
@@ -87,7 +142,25 @@ public class KameraSinir : MonoBehaviour
 
     public void DecreaseLives()
     {
-        remeningLives--;
+        if (remeningLives > 0)
+        {
+            remeningLives--;
+            LivesImage.enabled = false;
+            livesTextTMP.text = remeningLives.ToString();
+            Debug.Log("Kalan can: " + remeningLives );
+        }
+        else
+        {
+            Debug.Log("can kalmadı " + remeningLives);
+            managerObject.LoadEndGame();
+
+            
+        }
+    }
+
+    public void IncreaseLives()
+    {
+        remeningLives++;
         livesTextTMP.text = remeningLives.ToString();
         Debug.Log("Kalan can: " + remeningLives );
     }
@@ -106,6 +179,13 @@ public class KameraSinir : MonoBehaviour
         playerForLevel2.GetComponent<SpriteRenderer>().enabled = true;
     }
 
+    public void StartPlayer3()
+    {
+        playerForLevel3.GetComponent<Collider2D>().enabled = true;
+        playerForLevel3.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        playerForLevel3.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
     public void StopPlayer2()
     {
         playerForLevel2.GetComponent<Collider2D>().enabled = false;
@@ -113,6 +193,86 @@ public class KameraSinir : MonoBehaviour
         playerForLevel2.GetComponent<SpriteRenderer>().enabled = false;
     }
 
+    public void StopPlayer3()
+    {
+        playerForLevel3.GetComponent<Collider2D>().enabled = false;
+        playerForLevel3.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        playerForLevel3.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    
+    /*
+    public void StopFormerPlayer()
+    {
+        if (isLevel2)
+        {
+            StopPlayer1();
+        }
+        if (isLevel3)
+        {
+            StopPlayer2();
+        }
+    }
+
+    public void StartNextPlayer()
+    {
+        if (isLevel2)
+        {
+            StartPlayer2();
+        }
+        if (isLevel3)
+        {
+            StartPlayer3();
+        }
+    }
+    
+    */
+
+    IEnumerator StopFormerPlayerCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (isLevel2)
+        {
+            StopPlayer1();
+        }
+        if (isLevel3)
+        {
+            StopPlayer2();
+        }
+    }
+
+    IEnumerator StartNextPlayerCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (isLevel2)
+        {
+            StartPlayer2();
+        }
+        if (isLevel3)
+        {
+            StartPlayer3();
+        }
+    }
+
+    IEnumerator DecreaseLivesCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (remeningLives > 0)
+        {
+            remeningLives--;
+            LivesImage.enabled = false;
+            livesTextTMP.text = remeningLives.ToString();
+            Debug.Log("Kalan can: " + remeningLives );
+        }
+        else
+        {
+            Debug.Log("can kalmadı " + remeningLives);
+            managerObject.LoadEndGame();
+            
+        }
+    }
+
+    
 
 
 }
